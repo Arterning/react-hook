@@ -1,6 +1,7 @@
 import AddTask from "./AddTask.js";
 import TaskList from "./TaskList.js";
 import Welcome from "./Welcome.js";
+import Girls from "./Girls";
 import { TasksProvider } from "./TasksContext.js";
 
 export default function TaskApp() {
@@ -10,6 +11,7 @@ export default function TaskApp() {
       <AddTask />
       <TaskList />
       <Welcome />
+      <Girls />
     </TasksProvider>
   );
 }

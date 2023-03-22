@@ -2,18 +2,29 @@ import { createContext, useContext, useReducer, useState } from "react";
 
 const TasksContext = createContext(null);
 const TasksDispatchContext = createContext(null);
-
 const ThemeContext = createContext(null);
+const GirlsContext = createContext([]);
 
+const initialGirls = [
+  { id: 0, name: "小花", size: "D-cup" },
+  { id: 1, name: "小红", size: "C-cup" }
+];
+
+/**
+ * 定义组件是用箭头函数好呢？还是用这种标准形式好呢？
+ */
 export function TasksProvider({ children }) {
   const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
   const [theme, setTheme] = useState("dark");
+  const [girls, setGirls] = useState(initialGirls);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <TasksContext.Provider value={tasks}>
         <TasksDispatchContext.Provider value={dispatch}>
-          {children}
+          <GirlsContext.Provider value={girls}>
+            {children}
+          </GirlsContext.Provider>
         </TasksDispatchContext.Provider>
       </TasksContext.Provider>
     </ThemeContext.Provider>
@@ -22,6 +33,10 @@ export function TasksProvider({ children }) {
 
 export function useTheme() {
   return useContext(ThemeContext);
+}
+
+export function useGirls() {
+  return useContext(GirlsContext);
 }
 
 export function useTasks() {
